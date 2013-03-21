@@ -60,10 +60,14 @@ var opcodes = []Opcode{
 	ja(o_jauc,		0, 0, 0, 0),
 	ja(o_jalo,		1, 0, 0, 0),						// aka jac
 	ja(o_jals,		0, 0, 1, 0),
+	ja(o_jahi,		0, 0, 1, 1),
+	ja(o_jahs,		1, 0, 0, 1),						// aka janc
+	ja(o_jaeq,		1, 0, 1, 0),						// aka jaz
+	ja(o_jane,		1, 0, 1, 1),						// aka janz
 }
 
 func ja(f opfunc, c0, c1, c2, c3 uint16) {
-	return op(f,	1, 1, 0, 0, b0, b1, b2, b3, 1, 0, 0, 0, 0, 0, 0, 0)
+	return op(f,	1, 1, 0, 0, c0, c1, c2, c3, 1, 0, 0, 0, 0, 0, 0, 0)
 }
 
 func ui16(bits ...uint16) uint16 {
