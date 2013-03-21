@@ -54,6 +54,16 @@ var opcodes = []Opcode{
 	op(o_exgpc,	0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1),
 	op(o_filll,		0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0),
 	op(o_fillxy,	0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0),
+	op(o_getpc,	0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0),
+	op(o_getst,	0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0),
+	op(o_inc,		0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1),		// TODO this is just an alias for addk 1,rN... I'll need to sort this table by mask decreasing to have it be handled properly
+	ja(o_jauc,		0, 0, 0, 0),
+	ja(o_jalo,		1, 0, 0, 0),						// aka jac
+	ja(o_jals,		0, 0, 1, 0),
+}
+
+func ja(f opfunc, c0, c1, c2, c3 uint16) {
+	return op(f,	1, 1, 0, 0, b0, b1, b2, b3, 1, 0, 0, 0, 0, 0, 0, 0)
 }
 
 func ui16(bits ...uint16) uint16 {
@@ -71,12 +81,12 @@ func ui16(bits ...uint16) uint16 {
 	return x
 }
 
-func op(func opfunc, bits ...uint16) (o Opcode) {
+func op(f opfunc, bits ...uint16) (o Opcode) {
 	o.Expected = ui16(bits...)
 	for i := 0; i < len(bits); i++ {
 		bits[i] = 1		// TODO whether or not this should be legal should be in the spec
 	}
 	o.Mask = ui16(bits...)
-	o.Func = func
+	o.Func = f
 	return o
 }
