@@ -1,0 +1,16 @@
+tms34010disasm is a disassembler for Texas Instruments TMS34010 code. It tries to analyze code flow, much like IDA does. It disassembles flat boot ROMs for the chip; you must specify what address the ROM will reside at.
+
+This program is in its infancy, but since I have both huc6280disasm and 65816disasm now (tms34010disasm was started first), finish this one once I complete the opcode table should not be too hard. Since this thing doesn't have banking oddness like the others, this might also be more robust; we'll have to wait and see.
+
+The format of output lines is
+	instruction	operand	; ROM address of instruction | logical address of operands, or other info about the operands
+There can be multiple of the above, separated by pipes. If you see a (!) in this field, then something went wrong; see the message.
+
+huc6280disasm tries not to make a mistake, but there may very well still be bugs. Feel free to suggest improvements.
+
+The program is released under the terms of the GPLv3 for now. I may make the license more relaxed in the future.
+
+Please feel free to file bug reports and make suggestions.
+
+Thanks to:
+- anyone who I may have forgotten
